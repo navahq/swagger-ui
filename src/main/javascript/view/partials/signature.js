@@ -746,7 +746,7 @@ SwaggerUi.partials.signature = (function () {
     var config = descriptor.config;
     var definition = descriptor.definition;
     var models = descriptor.models;
-    var value;
+    var value = '';
     var items = definition.items;
     var xml = definition.xml || {};
     var namespace = getNamespace(xml);
@@ -758,7 +758,12 @@ SwaggerUi.partials.signature = (function () {
     if(items.xml && items.xml.name) {
         key = items.xml.name;
     }
-    value = createSchemaXML(key, items, models, config);
+    if (!_.isArray(items)) {
+      items = [items];
+    }
+    items.forEach(function(item) {
+      value += createSchemaXML(key, item, models, config);
+    });
     if (namespace) {
       attributes.push(namespace);
     }
