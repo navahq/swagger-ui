@@ -758,14 +758,15 @@ SwaggerUi.partials.signature = (function () {
     if(items.xml && items.xml.name) {
         key = items.xml.name;
     }
-    if (!_.isArray(items)) {
-      items = [items];
+    if (_.isArray(items)) {
       // If items is an array, you can't also have an items.xml property.
       // So use the root xml property of the array. Note this means you
       // can't have a wrapped array that also has multiple item examples.
       if (xml && xml.name) {
         key = xml.name;
       }
+    } else {
+      items = [items];
     }
     items.forEach(function(item) {
       value += createSchemaXML(key, item, models, config);
