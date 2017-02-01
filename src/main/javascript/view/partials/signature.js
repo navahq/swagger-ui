@@ -904,6 +904,9 @@ SwaggerUi.partials.signature = (function () {
   }
 
   function createSchemaXML (name, definition, models, config) {
+    if (definition.example) {
+      return wrapTag(name, definition.example);
+    }
     var $ref = _.isObject(definition) ? definition.$ref : null;
     var output, index;
     config = config || {};
